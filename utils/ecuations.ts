@@ -12,6 +12,40 @@ export const exponential = (c:number, k:number, yearDiference:number) => {
     return c * Math.exp(k * yearDiference)
 }
 
-export const logarithm = () => {
+export const getLogisticModel = (year1:number, year2:number, PMax:number, yearDiference:number) => {
+    const P0 = dataPopulation[dataYear.indexOf(year1)]
+    const P1 = dataPopulation[dataYear.indexOf(year2)]
 
+    const kc =  P0 / (PMax - P0)
+
+    const PMaxNew = PMax / 1000000; 
+    const P0New = P0 / 1000000; 
+    const P1New = P1 / 1000000; 
+
+    console.log({ PMaxNew, P0New, P1New, yearDiference })
+
+    const k_num = Math.log(
+        ((PMaxNew * P0New) - 
+        (P0New * P1New))
+        /
+        (P1New * (PMaxNew - P0New))
+    ); 
+    const k_den = -(PMaxNew * yearDiference); 
+
+    console.log({
+        k_num,
+        k_den
+    })
+
+    const k = k_num / k_den;
+
+    const r = k * PMaxNew
+
+    console.log({ kc, k, r, PMax })
+
+    return { kc, k, r, PMax }
+}
+
+export const logisticPopulation = (kc:number, r:number, yearDiference:number, PMax:number) => {
+    return (PMax * kc) / (Math.exp(-r * yearDiference) + kc)
 }
