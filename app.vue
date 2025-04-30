@@ -1,296 +1,275 @@
 <template>
-  <main>
-    <header class="bg-[#11212D] w-full h-18 shadow-custom-light">
-      <div class="w-full flex justify-between items-center px-4">
-        <div class="flex flex-row justify-between items-center w-80 mr-36 ">
-            <img src="/imagenes/euler.svg" alt="Logo de team papas fritas" class="w-[68px] object-contain">
-            <p class="text-[#FFFFFF] font-semibold w-auto text-[16px] tracking-wide ">Team Papitas Fritas</p>
+  <main class="flex flex-col">
+    <!-- HEADER -->
+    <header class="bg-[#11212D] w-full shadow-custom-light">
+      <div class="flex flex-col md:flex-row justify-between items-center px-4 py-3">
+        <!-- Logo + nombre -->
+        <div class="flex items-center space-x-2 mb-2 md:mb-0">
+          <img src="/imagenes/euler.svg" alt="Logo de team papas fritas" class="w-[48px] md:w-[68px] object-contain" />
+          <p class="text-white font-semibold text-[14px] md:text-[16px] tracking-wide">
+            Team Papitas Fritas
+          </p>
         </div>
-        <nav class="w-full flex justify-content item-center">
-          <ul class="flex w-full flex justify-between item-center">
-            <li class="text-[#FFFFFF] text-[12px] hover:text-[#00857c] cursor-pointer delay-300">
-              <a href="">
-                Problema planteado
-              </a>
-            </li>
-            <li class="text-[#FFFFFF] text-[12px] hover:text-[#00857c] cursor-pointer delay-300">
-              <a href="">
-                Ecuación logistica 
-              </a>
-            </li>
-            <li class="text-[#FFFFFF] text-[12px] hover:text-[#00857c] cursor-pointer delay-300">
-              <a href="">
-                Proyección 
-              </a>
-            </li>
-            <li class="text-[#FFFFFF] text-[14px] hover:text-[#00857c] cursor-pointer delay-300">
-              <a href="">
-                Sobre nosotros
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <!-- Navegación -->
+        <!-- Botón hamburguesa (solo móvil) -->
+    <button 
+      @click="toggleMenu" 
+      class="md:hidden p-2 focus:outline-none"
+      aria-label="Toggle menu"
+    >
+      <img src="/imagenes/menu.svg" alt="Menu" class="w-6 h-6" />
+    </button>
 
+    <!-- Navegación -->
+    <nav>
+      <ul
+        :class="[
+          // Móvil: si showMenu true => flex-col, si false => hidden
+          showMenu ? 'flex flex-col space-y-2' : 'hidden',
+          // Desde md: siempre flex-row y visible
+          'md:flex md:flex-row md:space-y-0 md:space-x-6'
+        ]"
+        class="text-white text-[12px] md:text-[14px]"
+      >
+        <li class="hover:text-[#00857c]"><a href="#problema">Problema planteado</a></li>
+        <li class="hover:text-[#00857c]"><a href="#poblacional-section">Ecuación Poblacional</a></li>
+        <li class="hover:text-[#00857c]"><a href="#proyeccion-poblacion">Proyección Poblacional</a></li>
+        <li class="hover:text-[#00857c]"><a href="#logistica-section">Ecuación logística</a></li>
+        <li class="hover:text-[#00857c]"><a href="#proyeccion-logistica">Proyección logística</a></li>
+        <li class="hover:text-[#00857c]"><a href="#footer">Sobre nosotros</a></li>
+      </ul>
+    </nav>
       </div>
     </header>
 
-    <section class="w-full h-[447px] bg-[#253745] flex justify-around items-center shadow-custom-sections">
-      <figure class="grid place-content-center">
-        <img src="/imagenes/flag_canada.svg" alt="Bandera canada" class="w-[428px]">
+    <!-- SECCIÓN 1: Problema planteado -->
+    <section id="problema" class="w-full bg-[#253745] flex flex-col items-center justify-center shadow-custom-sections px-4 py-8 space-y-6 md:flex-row md:justify-around md:space-y-0 md:h-[447px] md:py-0">
+      <figure class="w-full flex justify-center md:w-auto md:flex-shrink-0">
+        <img src="/imagenes/flag_canada.svg" alt="Bandera canada" class="w-32 sm:w-48 md:w-[428px] object-contain"/>
       </figure>
 
-      <div class="flex flex-nowrap flex-col">
-        <span class=" w-full text-[#FFFFFF] text-[18px] font-semibold text-center mb-8">
-          Problema planteado
-        </span>
-        <p class="text-[#FFFFFF] text-[14px] w-96 text-justify mb-8">
+      <div class="w-full flex flex-col items-center text-center space-y-4 md:items-start md:text-left md:w-1/2 md:pl-8">
+        <span class="text-white text-[18px] font-semibold">Problema planteado</span>
+        <p class="text-white text-[14px]">
           Este proyecto utiliza la ecuación diferencial logística para analizar y proyectar el crecimiento poblacional de GTA Canada, revelando cómo la ciudad evoluciona en medio de dinámicas complejas y limitaciones como recursos y espacio urbano. A través de datos históricos y el modelo matemático, se identifica el equilibrio entre el crecimiento y la capacidad de soporte, lo que permite predecir puntos críticos de estabilización y comprender mejor los desafíos y oportunidades en la planificación urbana sostenible de una metrópoli en constante transformación.
         </p>
-        <button class="w-24 text-[#FFFFFF] text-[12px] bg-[#AFAFAF] h-8 grid place-content-center mx-auto shadow-custom-dark rounded-md-custom hover:shadow-custom-buttons hover:bg-[#11212D] hover:delay-200">
+        <a href="https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&GENDERlist=1&STATISTIClist=1&HEADERlist=0&DGUIDlist=2021A00053520005&SearchText=toronto" class="px-6 py-2 bg-[#AFAFAF] text-white text-[12px] rounded-md-custom shadow-custom-dark hover:bg-[#11212D] hover:shadow-custom-buttons transition mx-auto" target="_blank">
           Leer más
-        </button>
+        </a>
+        <!-- <a class="px-6 py-2 bg-[#AFAFAF] text-white text-[12px] rounded-md-custom shadow-custom-dark hover:bg-[#11212D] hover:shadow-custom-buttons transition">
+          Leer más
+        </a> -->
       </div>
     </section>
 
+    <!-- ICONO FX -->
+    <section class="w-full flex justify-center my-12">
+      <img src="/imagenes/fx-icon.svg" alt="" class="w-16 md:w-[68px]" />
+    </section>
 
-    <!-- Section ecuacion poblacional -->
-     <section class="mx-auto w-full flex justify-center my-12">
-      <img src="/imagenes/fx-icon.svg" alt="" class="w-[68px]">
-     </section>
-
-    <section class="h-[850px] grid grid-flow-col w-full px-8">
-      <article class="flex flex-col items-center">
-        <span class="text-[18px] text-[#11212D] font-bold pb-8">
-          Ecuación Poblacional
+    <!-- SECCIÓN 2: Ecuación Poblacional -->
+    <section id="poblacional-section" class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-8 my-12">
+      <!-- Explicación -->
+      <article class="flex flex-col items-center space-y-4">
+        <span class="text-[18px] text-[#11212D] font-bold">Ecuación Poblacional</span>
+        <span class="text-[#06141B] text-center">¿En que consiste la Ecuación Poblacional?</span>
+        <figure><img src="/imagenes/ecuacion_poblacional.webp" alt="Ecuación Poblacional" /></figure>
+        <figure><img src="/imagenes/solve-poblacional.webp" alt="Solución Ecuación Poblacional" /></figure>
+        <span class="text-[#06141B] font-medium">
+          Obtenga la Ecuación Poblacional según los años que escogio
         </span>
-        <span class="pl-4 text-[#06141B] pb-8">
-          ¿En que consiste la Ecuación Poblacional?  
-        </span>
-        <figure class="pb-8">
-          <img src="/imagenes/ecuacion_poblacional.png" alt="Ecuación Poblacional">
-        </figure>
-        <figure class="pb-8">
-          <img src="/imagenes/solve-poblacional.jpg" alt="Solución Ecuación Poblacional">
-        </figure>
-
-        <span class="pl-4 text-[#06141B] pb-8 font-medium">
-          Obtenga la Ecuación Poblacional según los años que escogio 
-        </span>
-
-        <p class="pl-4 text-[#06141B] pb-8 ">P(t) = {{ cModel }}*exp({{ kModel }}* t)</p>
-        <p class="pl-4 text-[#06141B] pb-8 ">Predicción: {{ predictionResult }}</p>
-
+        <p class="text-[#06141B]">P(t) = {{ cModel }}*exp({{ kModel }}* t)</p>
+        <p class="text-[#06141B]">Predicción: {{ predictionResult }}</p>
       </article>
-
-
-      <article class="w-full">
-        <span class="text-[#06141B] pb-4 text-center flex justify-center">
-          ¿Quieres proyectar la población de Canada?
-        </span>
-
-        <p class="text-[#06141B] pb-8 text-center w-[500px] mx-auto">
-          Teniendo en cuenta el año inicial y el año a proyectar puedes analizar la población de GTA Canada, con datos reales y comportamientos de los indices. Utilizando dos variables necesarias para que tu proyección sea lo más precisa que se pueda, usando la Eucación Poblacional. 
+      <!-- Formulario y tabla -->
+      <article class="flex flex-col">
+        <span class="text-[#06141B] text-center mb-4">¿Quieres proyectar la población de Canada?</span>
+        <p class="text-[#06141B] text-center mb-6">
+          Teniendo en cuenta el año inicial y el año a proyectar puedes analizar la población de GTA Canada, con datos reales y comportamientos de los indices. Utilizando dos variables necesarias para que tu proyección sea lo más precisa que se pueda, usando la Ecuación Poblacional.
         </p>
+        <p class="text-[#06141B] text-center mb-4">Generar modelo Poblacional</p>
 
-        <p class="text-[#06141B] pb-4   text-center flex justify-center">Generar modelo Poblacional</p>
-
-    <div class="w-full  flex flex-col m-4 h-[450px]">
-      <div class="flex items-center p-2 font-bold text-white border-b rounded-md-custom shadow-custom-sections border-blue-50 bg-[#005062]">
-        <div class="w-1/2 pr-2 border-r text-center font-semibold border-blue-50 ">Año</div>
-        <div class="w-1/2 pl-2 text-center font-semibold">Población</div>
-      </div>
-
-      <!-- Contenedor scrollable para las filas -->
-      <div class="flex-1 overflow-y-scroll">
-        <div
-          v-for="(year, i) in dataYear"
-          :key="i"
-          class="flex items-center p-2 text-white ]"
-        >
-          <div class="w-1/2 pr-2 radius-2 mr-4 flex items-center justify-center h-8 bg-[#005062] rounded-md-custom">{{ year }}</div>
-          <div class="w-1/2 pl-2 bg-[#11212D] flex items-center justify-center h-8 rounded-md-custom">{{ dataPopulation[i] }}</div>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="flex flex-col w-full mt-8">
-
-      <div class="flex justify-around items-center mb-8">
-        <label calss="" for="year1P">Selecciona en base a la tabla el año inicial: </label>
-        <select class="border rounded-md p-2 shadow-custom-light" name="year1P" id="year1P" v-model="yearModel0">
-          <option v-for="row, i in dataYear" :key="i" :value="row"> {{row}} </option>
-        </select>
-      </div>
-    
-      <div class="flex justify-around items-center mb-8">
-        <label class="" for="year2P">Seleccione el segundo dato mayor al año inicial:</label>
-        <select class="border rounded-md p-2 shadow-custom-light" name="year2P" id="year2P" v-model="yearModel1">
-          <option v-for="row, i in yearList2" :key="i" :value="row"> {{row}} </option>
-        </select>
-      </div>
-      
-
-        <div class="flex justify-evenly items-center mb-8">
-          <label for="year2P">Hasta que año quiere proyectar la población: </label>
-          <input class="border rounded-md p-2 shadow-custom-light" type="number" :min="yearModel0" v-model="yearselected">
-        </div>
-        <button class="border rounded-md p-2 shadow-custom-light  w-1/2 mx-auto hover:shadow-custom-buttons hover:delay-150 hover:bg-[#11212D] hover:text-[#FFFFFF]" @click="predictModel">Predecir</button>
-    </div>
-        
-
-      
-
-      </article>
-
-      
-    </section>
-
-    
-    <section class="w-full h-[700px] grid place-content-center bg-[#253745] mt-56">
-      <span class="w-full text-[#FFFFFF] text-[18px] font-semibold text-center mb-8">¡Grafica con los datos anteriores la Ecuación Poblacional!</span>
-      <section class="w-[800px] h-[400px] grid place-content-center bg-[#FFFFFF] p-4 rounded-md">
-        <canvas id="acquisitions"></canvas>
-      </section>
-    </section>
-    
-
-    <!-- logistica  -->
-    <section class="mx-auto w-full flex justify-center my-12">
-      <img src="/imagenes/fx-icon-green.svg" alt="" class="w-[68px]">
-     </section>
-
-
-    <section class="h-auto grid grid-flow-col w-full px-8">
-      <article class="w-full">
-        <span class="text-[#06141B] pb-4 text-center flex justify-center">
-          ¿Quieres proyectar la población de canada?
-        </span>
-
-        <p class="text-[#06141B] pb-8 text-center w-[500px] mx-auto">
-          Teniendo en cuenta el año inicial, la población maxima que creas y el año a proyectar puedes analizar la población de GTA Canada, con datos reales y comportamientos de los indices. Utilizando dos variables necesarias para que tu proyección sea lo mas precisa que se pueda, usando la Eucación Logistaica. 
-        </p>
-
-        <p class="text-[#06141B] pb-4 text-center flex justify-center">Generar modelo logisticol</p>
-
-        <div class="w-full  flex flex-col m-4 h-[450px]">
-          <div class="flex items-center p-2 font-bold text-white border-b rounded-md-custom shadow-custom-sections border-blue-50 bg-[#005062]">
-            <div class="w-1/2 pr-2 border-r text-center font-semibold border-blue-50 ">Año</div>
-            <div class="w-1/2 pl-2 text-center font-semibold">Población</div>
+        <div class="w-full flex flex-col h-[450px]">
+          <div class="flex items-center p-2 font-bold text-white border-b rounded-md-custom shadow-custom-sections bg-[#005062]">
+            <div class="w-1/2 pr-2 border-r border-blue-50 text-center">Año</div>
+            <div class="w-1/2 pl-2 text-center">Población</div>
           </div>
-
-      <!-- Contenedor scrollable para las filas -->
           <div class="flex-1 overflow-y-scroll">
-            <div v-for="(year, i) in dataYear" :key="i" class="flex items-center p-2 text-white ]">
-              <div class="w-1/2 pr-2 radius-2 mr-4 flex items-center justify-center h-8 bg-[#005062] rounded-md-custom">{{ year }}</div>
-              <div class="w-1/2 pl-2 bg-[#11212D] flex items-center justify-center h-8 rounded-md-custom">{{ dataPopulation[i] }}</div>
+            <div v-for="(year, i) in dataYear" :key="i" class="flex items-center p-2 text-white even:bg-[#004851]">
+              <div class="w-1/2 pr-2 flex items-center justify-center h-8 bg-[#005062] rounded-md-custom">{{ year }}</div>
+              <div class="w-1/2 pl-2 flex items-center justify-center h-8 bg-[#11212D] rounded-md-custom">{{ dataPopulation[i] }}</div>
             </div>
           </div>
         </div>
 
-        <div class="flex flex-col w-full mt-8">
-          <div class="flex justify-around items-center mb-8">
-            <label calss="" for="year1Log">Selecciona en base a la tabla el año inicial: </label> 
-            <select class="border rounded-md p-2 shadow-custom-light" name="year0Log" id="year0Log" v-model="yearModelLog0">
-              <option v-for="row, i in dataYear" :key="i" :value="row"> {{row}} </option>
+        <div class="flex flex-col space-y-4 mt-8">
+          <div class="flex flex-col md:flex-row md:justify-around items-center space-y-2 md:space-y-0">
+            <label for="year1P">Selecciona en base a la tabla el año inicial:</label>
+            <select id="year1P" v-model="yearModel0" class="border rounded-md p-2 shadow-custom-light">
+              <option v-for="(row,i) in dataYear" :key="i" :value="row">{{ row }}</option>
             </select>
           </div>
-            
-          <div class="flex justify-around items-center mb-8">
-            <label class="" for="year1Log">Seleccione el segundo dato mayor al año inicial:</label>
-            <select class="border rounded-md p-2 shadow-custom-light" name="year1Log" id="year1Log" v-model="yearModelLog1">
-              <option v-for="row, i in yearListLog2" :key="i" :value="row"> {{row}} </option>
+          <div class="flex flex-col md:flex-row md:justify-around items-center space-y-2 md:space-y-0">
+            <label for="year2P">Seleccione el segundo dato mayor al año inicial:</label>
+            <select id="year2P" v-model="yearModel1" class="border rounded-md p-2 shadow-custom-light">
+              <option v-for="(row,i) in yearList2" :key="i" :value="row">{{ row }}</option>
             </select>
           </div>
-
-          <div class="flex justify-around items-center mb-8">
-            <label class="" for="PopulationMax">Capacidad máxima de población a predecir: :</label>
-            <input class="border rounded-md p-2 shadow-custom-light" name="PopulationMax" id="PopulationMax" type="number" :min="yearModelLog0" v-model="PMax" step="0.1">
+          <div class="flex flex-col md:flex-row md:justify-around items-center space-y-2 md:space-y-0">
+            <label for="yearselected">Hasta que año quiere proyectar la población:</label>
+            <input type="number" :min="yearModel0" v-model="yearselected" class="border rounded-md p-2 shadow-custom-light"/>
           </div>
 
-          <div class="flex justify-around items-center mb-8">
-            <label for="yearPredictionLog">Hasta que año quiere proyectar la población: </label>
-            <input class="border rounded-md p-2 shadow-custom-light" name="yearPredictionLog" id="yearPredictionLog" type="number" :min="yearModelLog0" v-model="yearselectedLog"> 
-          </div>
-          <button class="border rounded-md p-2 shadow-custom-light w-1/2 mx-auto hover:shadow-custom-buttons hover:delay-150 hover:bg-[#2C4951] hover:text-[#FFFFFF]" @click="predictLogisticModel">Predecir</button>
+          <button @click="predictModel" class="border rounded-md p-2 shadow-custom-light w-full md:w-1/2 mx-auto hover:shadow-custom-buttons hover:bg-[#11212D] hover:text-white transition">
+            Predecir
+          </button>
         </div>
-      </article> 
-
-      <article class="flex flex-col items-center">
-        <span class="text-[18px] text-[#2C4951] font-bold pb-8">
-          Eucacion Logistica
-        </span>
-        <span class="text-[#06141B] pb-8">
-          ¿En que consiste la Eucación Logistica?  
-        </span>
-        <figure class="pb-8">
-          <img src="/imagenes/tasa.webp" alt="Ecuación Logistica">
-        </figure>
-        <figure class="pb-8">
-          <img src="/imagenes/solve-logistica.png" alt="Solución Ecuación Logistica">
-        </figure>
-
-        <span class="pr-4 text-[#06141B] pb-8 font-medium">
-          Obtenga la ecuación logistica según los años que escogio 
-        </span>
-
-        <p class="pr-4 text-[#06141B] pb-8 ">P(t) = {{ PMax }}*{{ kcModel }}/(exp(-{{ rModel }}*t) + {{ kcModel }})</p>
-        <p class="pr-4 text-[#06141B] pb-8 ">Predicción: {{ predictionResultLog }}</p>
 
       </article>
-
     </section>
 
-    <section class="w-full h-[700px] grid place-content-center bg-[#2C4951] mt-36">
-      <span class="w-full text-[#FFFFFF] text-[18px] font-semibold text-center mb-8">¡Grafica con los datos anteriores la ecuación logistica!</span>
-      <section class="w-[800px] h-[400px] grid place-content-center bg-[#FFFFFF] p-4 rounded-md">
+    <!-- GRÁFICO POBLACIONAL -->
+    <section id="proyeccion-poblacion" class="w-full bg-[#253745] flex flex-col items-center py-12">
+      <span class="text-white text-[18px] font-semibold mb-8 text-center">
+        ¡Grafica con los datos anteriores la Ecuación Poblacional!
+      </span>
+      <div class="w-full max-w-[800px] h-[400px] bg-white p-4 rounded-md shadow">
+        <canvas id="acquisitions"></canvas>
+      </div>
+    </section>
+
+    <!-- ICONO FX VERDE -->
+    <section class="w-full flex justify-center my-12">
+      <img src="/imagenes/fx-icon-green.svg" alt="Icono Función matematica" class="w-16 md:w-[68px]" />
+    </section>
+
+    <!-- SECCIÓN 3: Ecuación Logística -->
+    <section id="logistica-section" class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-8 my-12">
+
+      <article class="flex flex-col items-center space-y-4">
+        <span class="text-[18px] text-[#2C4951] font-bold">Ecuacion Logistica</span>
+        <span class="text-[#06141B] text-center">¿En que consiste la Ecuación Logistica?</span>
+        <figure>
+          <img src="/imagenes/tasa.webp" alt="Ecuación Logistica" />
+        </figure>
+        <figure>
+          <img src="/imagenes/solve-logistica.webp" alt="Solución Ecuación Logistica" />
+        </figure>
+        <span class="text-[#06141B] font-medium">Obtenga la ecuación logistica según los años que escogio</span>
+        <p class="text-[#06141B]">P(t) = {{ PMax }}*{{ kcModel }}/(exp(-{{ rModel }}*t) + {{ kcModel }})</p>
+        <p class="text-[#06141B]">Predicción: {{ predictionResultLog }}</p>
+      </article>
+      
+      <!-- Formulario y tabla logística -->
+      <article class="flex flex-col">
+        <span class="text-[#06141B] text-center mb-4">¿Quieres proyectar la población de canada?</span>
+        <p class="text-[#06141B] text-center mb-6">
+          Teniendo en cuenta el año inicial, la población máxima que creas y el año a proyectar puedes analizar la población de GTA Canada, con datos reales y comportamientos de los índices. Utilizando dos variables necesarias para que tu proyección sea lo más precisa que se pueda, usando la Ecuación Logística.
+        </p>
+        <p class="text-[#06141B] text-center mb-4">Generar modelo logistico</p>
+
+        <div class="w-full flex flex-col h-[450px]">
+          <div class="flex items-center p-2 font-bold text-white border-b rounded-md-custom shadow-custom-sections bg-[#005062]">
+            <div class="w-1/2 pr-2 border-r border-blue-50 text-center">Año</div>
+            <div class="w-1/2 pl-2 text-center">Población</div>
+          </div>
+          <div class="flex-1 overflow-y-scroll">
+            <div v-for="(year, i) in dataYear" :key="i" class="flex items-center p-2 text-white even:bg-[#004851]">
+              <div class="w-1/2 pr-2 flex items-center justify-center h-8 bg-[#005062] rounded-md-custom"> {{ year }} </div>
+              <div class="w-1/2 pl-2 flex items-center justify-center h-8 bg-[#11212D] rounded-md-custom">{{ dataPopulation[i] }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col space-y-4 mt-8">
+
+          <div class="flex flex-col md:flex-row md:justify-around items-center space-y-2 md:space-y-0">
+            <label for="year1Log">Selecciona en base a la tabla el año inicial:</label>
+            <select id="year1Log" v-model="yearModelLog0" class="border rounded-md p-2 shadow-custom-light">
+              <option v-for="(row,i) in dataYear" :key="i" :value="row">{{ row }}</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col md:flex-row md:justify-around items-center space-y-2 md:space-y-0">
+            <label for="year2Log">Seleccione el segundo dato mayor al año inicial:</label>
+            <select id="year2Log" v-model="yearModelLog1" class="border rounded-md p-2 shadow-custom-light">
+              <option v-for="(row,i) in yearListLog2" :key="i" :value="row">{{ row }}</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col md:flex-row md:justify-around items-center space-y-2 md:space-y-0">
+            <label for="PopulationMax">Capacidad máxima de población a predecir:</label>
+            <input id="PopulationMax" type="number" :min="yearModelLog0" v-model="PMax" step="0.1" class="border rounded-md p-2 shadow-custom-light"/>
+          </div>
+
+          <div class="flex flex-col md:flex-row md:justify-around items-center space-y-2 md:space-y-0">
+            <label for="yearPredictionLog">Hasta que año quiere proyectar la población:</label>
+            <input id="yearPredictionLog" type="number" :min="yearModelLog0" v-model="yearselectedLog" class="border rounded-md p-2 shadow-custom-light" />
+          </div>
+
+          <button @click="predictLogisticModel" class="border rounded-md p-2 shadow-custom-light w-full md:w-1/2 mx-auto hover:shadow-custom-buttons hover:bg-[#2C4951] hover:text-white transition">
+            Predecir
+          </button>
+        </div>
+      </article> 
+    </section>
+
+    <!-- GRÁFICO LOGÍSTICO -->
+    <section id="proyeccion-logistica" class="w-full bg-[#2C4951] flex flex-col items-center py-12">
+      <span class="text-white text-[18px] font-semibold mb-8 text-center">
+        ¡Grafica con los datos anteriores la ecuación logistica!
+      </span>
+      <div class="w-full max-w-[800px] h-[400px] bg-white p-4 rounded-md shadow">
         <canvas id="acquisitionsLog"></canvas>
-      </section>
+      </div>
     </section>
 
-    <footer class="h-[500px] w-full">
-      <div class="flex flex-col h-full">
-        <span class="text-[18px] text-[#2C4951] font-bold my-14 flex justify-center">¿Donde nos encuentras?</span>
-        <div class="grid grid-cols-3 grid-rows-2 gap-6 flex-1 px-4">
-          <div class="flex justify-center items-center">
-            <img src="/imagenes/email.svg" class="w-[30px] mr-4" alt="Correo Electronico">
-            <span class="text-[#2C4951] font-medium">Teampapasfritas@gmail.com</span>
-          </div>
-
-          <div class="flex justify-center items-center">
-            <img src="/imagenes/instagram.svg" class="w-[30px] mr-4" alt="Instagram">
-            <span class="text-[#2C4951] font-medium">Team_Papitas_Fritas</span>
-          </div>
-
-          <div class="flex justify-center items-center">
-            <img src="/imagenes/whatsapp.svg" class="w-[30px] mr-4" alt="WhatsApp">
-            <span class="text-[#2C4951] font-medium">+57 3214030094</span>
-          </div>
-
-          <div class="flex justify-center items-center">
-            <img src="/imagenes/linkedin.svg" class="w-[30px] mr-4" alt="LinkedIn">
-            <span class="text-[#2C4951] font-medium">Team_Papitas_Fritas</span>
-          </div>
-
-          <div class="flex justify-center items-center">
-            <img src="/imagenes/twitter.svg" class="w-[30px] mr-4" alt="Twitter">
-            <span class="text-[#2C4951] font-medium">Papitas_fritas</span>
-          </div>
-
-          <div class="flex justify-center items-center">
-            <img src="/imagenes/graph.svg" class="w-[30px] mr-4" alt="Frase">
-            <span class="text-[#2C4951] font-medium">Frase: Cualquier hueco es trinchera, cuando hay hambre</span>
-          </div>   
+    <!-- FOOTER -->
+    <footer id="footer" class="w-full bg-white mt-12">
+      <div class="flex flex-col items-center space-y-6 py-8 px-4 md:grid md:grid-cols-3 md:grid-rows-2 md:gap-6 md:space-y-0 md:px-8">
+        <span class="text-[18px] text-center text-[#2C4951] font-bold md:col-span-3">
+          ¿Donde nos encuentras?
+        </span>
+        <div class="flex items-center space-x-2">
+          <img src="/imagenes/email.svg" alt="Correo" class="w-6" />
+          <span class="text-[#2C4951]">Teampapasfritas@gmail.com</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <img src="/imagenes/instagram.svg" alt="Instagram" class="w-6" />
+          <span class="text-[#2C4951]">Team_Papitas_Fritas</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <img src="/imagenes/whatsapp.svg" alt="WhatsApp" class="w-6" />
+          <span class="text-[#2C4951]">+57 3214030094</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <img src="/imagenes/linkedin.svg" alt="LinkedIn" class="w-6" />
+          <span class="text-[#2C4951]">Team_Papitas_Fritas</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <img src="/imagenes/twitter.svg" alt="Twitter" class="w-6" />
+          <span class="text-[#2C4951]">Papitas_fritas</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <img src="/imagenes/graph.svg" alt="Frase" class="w-6" />
+          <span class="text-[#2C4951]">Frase: Cualquier hueco es trinchera, cuando hay hambre</span>
         </div>
       </div>
     </footer>
   </main>
 </template>
 
+
+
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
 import Chart from 'chart.js/auto';
+
+const showMenu = ref(false)
+const toggleMenu = () => {
+  showMenu.value = !showMenu.value
+}
 
 
 import { dataYear, dataPopulation } from '@/utils/data'
