@@ -12,13 +12,9 @@
         </div>
         <!-- Navegación -->
         <!-- Botón hamburguesa (solo móvil) -->
-    <button 
-      @click="toggleMenu" 
-      class="md:hidden p-2 focus:outline-none"
-      aria-label="Toggle menu"
-    >
-      <img src="/imagenes/menu.svg" alt="Menu" class="w-6 h-6" />
-    </button>
+      <button @click="toggleMenu" class="md:hidden p-2 focus:outline-none" aria-label="Toggle menu">
+        <img src="/imagenes/menu.svg" alt="Menu" class="w-6 h-6" />
+      </button>
 
     <!-- Navegación -->
     <nav>
@@ -68,7 +64,7 @@
     </section>
 
     <!-- SECCIÓN 2: Ecuación Poblacional -->
-    <section id="poblacional-section" class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-8 my-12">
+    <section id="poblacional-section" class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-8 pb-14">
       <!-- Explicación -->
       <article class="flex flex-col items-center space-y-4">
         <span class="text-[18px] text-[#11212D] font-bold">Ecuación Poblacional</span>
@@ -80,6 +76,7 @@
         </span>
         <p class="text-[#06141B]">P(t) = {{ cModel }}*exp({{ kModel }}* t)</p>
         <p class="text-[#06141B]">Predicción: {{ predictionResult }}</p>
+        <p class="text-[#06141B]">Error porcentual: {{ errorPercentModel }} %</p>
       </article>
       <!-- Formulario y tabla -->
       <article class="flex flex-col">
@@ -95,9 +92,9 @@
             <div class="w-1/2 pl-2 text-center">Población</div>
           </div>
           <div class="flex-1 overflow-y-scroll">
-            <div v-for="(year, i) in dataYear" :key="i" class="flex items-center p-2 text-white even:bg-[#004851]">
-              <div class="w-1/2 pr-2 flex items-center justify-center h-8 bg-[#005062] rounded-md-custom">{{ year }}</div>
-              <div class="w-1/2 pl-2 flex items-center justify-center h-8 bg-[#11212D] rounded-md-custom">{{ dataPopulation[i] }}</div>
+            <div v-for="(year, i) in dataYear" :key="i" class="flex items-center p-2 text-white ">
+              <div class="w-1/2 mr-2 flex items-center justify-center h-8 bg-[#005062] rounded-md-custom ">{{ year }}</div>
+              <div class="w-1/2 ml-2 flex items-center justify-center h-8 bg-[#11212D] rounded-md-custom">{{ dataPopulation[i] }}</div>
             </div>
           </div>
         </div>
@@ -129,7 +126,7 @@
     </section>
 
     <!-- GRÁFICO POBLACIONAL -->
-    <section id="proyeccion-poblacion" class="w-full bg-[#253745] flex flex-col items-center py-12">
+    <section id="proyeccion-poblacion" class="w-full bg-[#253745] flex flex-col items-center py-12 shadow-custom-sections">
       <span class="text-white text-[18px] font-semibold mb-8 text-center">
         ¡Grafica con los datos anteriores la Ecuación Poblacional!
       </span>
@@ -158,6 +155,7 @@
         <span class="text-[#06141B] font-medium">Obtenga la ecuación logistica según los años que escogio</span>
         <p class="text-[#06141B]">P(t) = {{ PMax }}*{{ kcModel }}/(exp(-{{ rModel }}*t) + {{ kcModel }})</p>
         <p class="text-[#06141B]">Predicción: {{ predictionResultLog }}</p>
+        <p class="text-[#06141B]">Error porcentual: {{ errorPercentLogistic }} %</p>
       </article>
       
       <!-- Formulario y tabla logística -->
@@ -174,9 +172,9 @@
             <div class="w-1/2 pl-2 text-center">Población</div>
           </div>
           <div class="flex-1 overflow-y-scroll">
-            <div v-for="(year, i) in dataYear" :key="i" class="flex items-center p-2 text-white even:bg-[#004851]">
-              <div class="w-1/2 pr-2 flex items-center justify-center h-8 bg-[#005062] rounded-md-custom"> {{ year }} </div>
-              <div class="w-1/2 pl-2 flex items-center justify-center h-8 bg-[#11212D] rounded-md-custom">{{ dataPopulation[i] }}</div>
+            <div v-for="(year, i) in dataYear" :key="i" class="flex items-center p-2 text-white even:bg">
+              <div class="w-1/2 mr-2 flex items-center justify-center h-8 bg-[#005062] rounded-md-custom"> {{ year }} </div>
+              <div class="w-1/2 ml-2 flex items-center justify-center h-8 bg-[#11212D] rounded-md-custom">{{ dataPopulation[i] }}</div>
             </div>
           </div>
         </div>
@@ -280,10 +278,15 @@ const poblacionalChart = ref<Chart|null>(null)
 const logisticChart = ref<Chart|null>(null)
 
 
+function roundTo(num: number, decimals = 5): number {
+  return parseFloat(num.toFixed(decimals));
+}
+
 // Modelo poblacional
 const yearModel0 = ref(dataYear[0])
 const yearModel1 = ref(dataYear[1])
 const yearselected = ref(dataYear[0])
+const errorPercentModel = ref(0)
 
 const cModel = ref(0)
 const kModel = ref(0)
@@ -293,18 +296,35 @@ const predictionResult = ref(0)
 const yearModelLog0 = ref(dataYear[0])
 const yearModelLog1 = ref(dataYear[1])
 const yearselectedLog = ref(dataYear[0])
+const errorPercentLogistic = ref(0)
 
 const kcModel = ref(0)
 const rModel = ref(0)
 const predictionResultLog = ref(0)
 const PMax = ref(0)
 
+function percentError(real: number, predicted: number, decimals = 5): number {
+  if (real === 0) return 0
+  const err = Math.abs((real - predicted) / real) * 100
+  return parseFloat(err.toFixed(decimals))
+}
+
 const predictModel = () => {
   const { c, k } = getModel(yearModel0.value, yearModel1.value)
-  cModel.value = c
-  kModel.value = k
+  cModel.value = roundTo(c, 3)
+  kModel.value = roundTo(k, 3)
   
-  predictionResult.value = exponential(cModel.value, kModel.value, yearselected.value - yearModel0.value)
+  
+  const rawPrediction = exponential(cModel.value, kModel.value, yearselected.value - yearModel0.value)
+  const pred = Math.trunc(roundTo(rawPrediction, 5))
+  predictionResult.value = pred 
+
+  const realPop = dataPopulation[dataYear.indexOf(yearselected.value)]
+  // 2) calcula el error
+  errorPercentModel.value = percentError(realPop, pred, 2)
+
+  // const rawPrediction = predictionResult.value = exponential(cModel.value, kModel.value, yearselected.value - yearModel0.value)
+  // predictionResult.value = roundTo(rawPrediction, 5)  
 
   let years = []
   let population = []
@@ -360,13 +380,19 @@ const predictLogisticModel = () => {
   const yearDiff = yearModelLog1.value - yearModelLog0.value
   const { kc, r, PMax: modelPMax } = getLogisticModel(yearModelLog0.value, yearModelLog1.value, PMax.value, yearDiff)
 
-  kcModel.value = kc
-  rModel.value = r
+  kcModel.value = roundTo(kc, 4)
+  rModel.value  = roundTo(r, 4)
 
   // Diference years old and now
-  const predictionYears = yearselected.value - yearModel0.value
-  predictionResultLog.value = logisticPopulation(kc, r, predictionYears, modelPMax)
+  // const predictionYears = yearselected.value - yearModel0.value
+  // predictionResultLog.value = logisticPopulation(kc, r, predictionYears, modelPMax)
 
+  const rawLogPred = logisticPopulation(kc, r, yearselectedLog.value - yearModelLog0.value, modelPMax)
+  const predLog = Math.trunc(roundTo(rawLogPred, 4))
+  predictionResultLog.value = predLog
+
+  const realPopLog = dataPopulation[dataYear.indexOf(yearselectedLog.value)]
+  errorPercentLogistic.value = percentError(realPopLog, predLog, 2)
   // Graph data
   let years = []
   let population = []
