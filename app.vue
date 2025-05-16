@@ -29,9 +29,8 @@
         >
           <li class="hover:text-[#00857c]"><a href="#problema">Problema planteado</a></li>
           <li class="hover:text-[#00857c]"><a href="#poblacional-section">Ecuación Poblacional</a></li>
-          <li class="hover:text-[#00857c]"><a href="#proyeccion-poblacion">Proyección Poblacional</a></li>
           <li class="hover:text-[#00857c]"><a href="#logistica-section">Ecuación logística</a></li>
-          <li class="hover:text-[#00857c]"><a href="#proyeccion-logistica">Proyección logística</a></li>
+          <li class="hover:text-[#00857c]"><a href="#conclusion">Conclusiones</a></li>
           <li class="hover:text-[#00857c]"><a href="#footer">Sobre nosotros</a></li>
         </ul>
       </nav>
@@ -46,12 +45,18 @@
 
         <div class="w-full flex flex-col items-center text-center space-y-4 md:items-start md:text-left md:w-1/2 md:pl-8">
           <span class="text-white text-[18px] font-semibold">Problema planteado</span>
-          <p class="text-white text-[14px]">
+          <p class="text-white text-[14px] w-7/12 md:w-full">
             Este proyecto utiliza la ecuación diferencial logística para analizar y proyectar el crecimiento poblacional de GTA Canada, revelando cómo la ciudad evoluciona en medio de dinámicas complejas y limitaciones como recursos y espacio urbano. A través de datos históricos y el modelo matemático, se identifica el equilibrio entre el crecimiento y la capacidad de soporte, lo que permite predecir puntos críticos de estabilización y comprender mejor los desafíos y oportunidades en la planificación urbana sostenible de una metrópoli en constante transformación.
           </p>
-          <a href="https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&GENDERlist=1&STATISTIClist=1&HEADERlist=0&DGUIDlist=2021A00053520005&SearchText=toronto" class="px-6 py-2 bg-[#AFAFAF] text-white text-[12px] rounded-md-custom shadow-custom-dark hover:bg-[#11212D] hover:shadow-custom-buttons transition mx-auto" target="_blank">
+          <div class="flex flex-row justify-center w-96 mx-auto ">
+            <a href="https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&GENDERlist=1&STATISTIClist=1&HEADERlist=0&DGUIDlist=2021A00053520005&SearchText=toronto" class="px-6 py-2 bg-[#AFAFAF] text-white text-[12px] rounded-md-custom shadow-custom-dark hover:bg-[#11212D] hover:shadow-custom-buttons transition mx-auto" target="_blank">
             Leer más
           </a>
+          <a href="/matlab/ProyectoFinalED.mlx" download="ProyectoFinalED.mlx" class="px-6 py-2 bg-[#AFAFAF] text-white text-[12px] rounded-md-custom shadow-custom-dark hover:bg-[#11212D] hover:shadow-custom-buttons transition mx-auto">
+            Descargar MatLab
+          </a>
+          </div>
+          
           <!-- <a class="px-6 py-2 bg-[#AFAFAF] text-white text-[12px] rounded-md-custom shadow-custom-dark hover:bg-[#11212D] hover:shadow-custom-buttons transition">
             Leer más
           </a> -->
@@ -142,10 +147,10 @@
               <label for="yearselected">Hasta que año quiere proyectar la población:</label>
               <input type="number" :min="yearModel1" v-model="yearselected" class="border rounded-md p-2 shadow-custom-light"/>
             </div>
-            <p v-if="yearselected <= yearModel1" class="text-red-500 text-sm pr-4">
+            <p v-if="yearselected <= yearModel1" class="text-red-500 text-sm pr-4 text-center">
                 Debe elegir un año mayor a {{ yearModel1 }}.
             </p>
-            <p v-else-if="yearselected > maxYearData" class="text-red-500 text-sm block">
+            <p v-else-if="yearselected > maxYearData" class="text-red-500 text-sm pr-4 text-center">
                 Sólo se puede predecir hasta el año {{ maxYearData }}.
             </p>
 
@@ -258,10 +263,10 @@
               <label for="yearPredictionLog">Hasta que año quiere proyectar la población:</label>
               <input id="yearPredictionLog" type="number" :min="yearModelLog1" v-model="yearselectedLog" class="border rounded-md p-2 shadow-custom-light" />
             </div>
-            <p v-if="yearselectedLog <= yearModelLog1" class="text-red-500 text-sm"> 
+            <p v-if="yearselectedLog <= yearModelLog1" class="text-red-500 text-sm pr-4 text-center"> 
                 Debe elegir un año mayor a {{ yearModelLog1 }}.
             </p>
-            <p v-else-if="yearselectedLog > maxYearData" class="text-red-500 text-sm">
+            <p v-else-if="yearselectedLog > maxYearData" class="text-red-500 text-sm pr-4 text-center">
               Sólo se puede predecir hasta el año {{ maxYearData }}.
             </p>
 
@@ -282,13 +287,15 @@
         </div>
       </section>
 
-      <section class="w-full md:w-11/12 bg-[#2C4951] h-auto p-10 text-[#ffffff] grid place-content-center mt-14 mx-auto">
+      <section class="w-full md:w-11/12 bg-[#2C4951] h-auto p-10 text-[#ffffff] grid place-content-center mt-14 mx-auto" id="conclusion">
         <span class="mb-8 font-semibold">Conclusiones: </span>
         <p>
-          En conclusión, se evidencia que la ecuación poblacional exponencial ofrece una primera aproximación valiosa para describir el crecimiento ilimitado de una población bajo condiciones ideales, sirviendo de base para obtener la constante de crecimiento
-          k y la población inicial P0. Mediante la transformada de Laplace de esta ecuación, hemos podido trasladar el problema al dominio 
-          s, facilitando la obtención de la solución analítica y reforzando la conexión entre teoría de señales y dinámica poblacional. Por otro lado, la ecuación logística incorpora la noción de capacidad de carga
-          K, modelando el crecimiento realista que se frena al acercarse a límites ambientales. Su transformada de Laplace, al manejar el término no lineal de segundo orden, demuestra cómo los métodos de fracciones parciales y la linealización son herramientas imprescindibles para descomponer fenómenos no lineales y obtener soluciones en el dominio temporal. En conjunto, estos modelos y sus tratamientos en el dominio s no solo muestran la elegancia matemática de las transformadas integrales, sino que también proporcionan un marco sólido para proyectar poblaciones reales y planificar políticas de sostenibilidad.
+          En este proyecto se pudo evidenciar el primer acercamiento a la importancia del cálculo a lo largo del desarrollo humano, y cómo, por medio de procedimientos algebraicos, cálculo diferencial e integral, se puede desarrollar una ecuación diferencial que nos permite predecir la población en determinado ambiente. Esto es de suma importancia, ya que tiene gran influencia en ámbitos como la biología, ecología, economía y sociología.<br> <br>
+          Para llevarlo a cabo, se tomó una población que se caracterizara por tener una alta calidad de vida a lo largo de la historia, con pocos enfrentamientos militares y buena estabilidad en términos económicos, educativos, políticos y de respeto a los derechos humanos. Todo esto permite que un modelo exponencial o logístico sea más preciso al determinar la población en un determinado año. <br><br>
+          En el caso del modelo exponencial, se obtuvieron resultados con un rango de precisión del 4% al 24% para el año 2020. Esto dependía en gran parte de los valores iniciales utilizados para resolver una función explícita. Se observó que el porcentaje de precisión estaba más ligado al segundo dato que requiere el modelo exponencial, es decir, que el porcentaje variaba según qué tan alejado en años estaba el segundo dato respecto al año que se quería predecir, sin importar cuán distante estuviera el año inicial. <br><br>
+          No obstante, dado que este modelo exponencial predice un crecimiento continuo, se implementó una ecuación logística, la cual ofrece mayor precisión al incluir un factor limitante. En el caso de Canadá, se puede deducir que solo el 10% del territorio es altamente habitable y cultivable debido a sus climas extremos, que alcanzan temperaturas de hasta –50°C. Por ello, nuestro factor limitante para el modelo logístico será primordialmente la temperatura.<br><br>
+          En el desarrollo de este modelo se evidenció una mayor precisión, ya que el rango de error se redujo a entre 1.07% y 2.84%. Para ello, se analizó una predicción coherente del límite poblacional y se concluyó que el modelo es mucho más preciso si se toman valores en donde la población se encuentra en la transición de la curva ascendente a descendente. <br><br>
+          En términos de desarrollo, la ecuación de Laplace permitió resolver el modelo exponencial de una manera más sencilla. Por el contrario, el modelo logístico, al no ser una ecuación lineal, presentó un procedimiento más complejo para su resolución; sin embargo, una opción eficiente para resolverlo fue mediante el método de variables separables.
         </p>
       </section>
       <!-- FOOTER -->
@@ -307,7 +314,7 @@
           </div>
           <div class="flex items-center space-x-2">
             <img src="/imagenes/whatsapp.svg" alt="WhatsApp" class="w-6" />
-            <span class="text-[#2C4951]">+57 3214030094</span>
+            <span class="text-[#2C4951]">+57 3003339871</span>
           </div>
           <div class="flex items-center space-x-2">
             <img src="/imagenes/linkedin.svg" alt="LinkedIn" class="w-6" />
@@ -319,7 +326,7 @@
           </div>
           <div class="flex items-center space-x-2">
             <img src="/imagenes/graph.svg" alt="Frase" class="w-6" />
-            <span class="text-[#2C4951]">Frase: Cualquier hueco es trinchera, cuando hay hambre</span>
+            <span class="text-[#2C4951]">Frase: Todo aprendiz lleva el legado de un gran maestro. (Edwin).</span>
           </div>
         </div>
       </footer>
