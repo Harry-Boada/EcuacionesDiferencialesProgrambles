@@ -14,7 +14,7 @@ export default {
         'custom-sections': '0 6px 6px #ccc',     // sombre pallete
         'custom-dark': '0 3px 4px rgba(0, 0, 0, 0.3)',      // sombra fuerte
         'custom-blue': '0 4px 10px rgba(30, 64, 175, 0.5)',
-        'custom-buttons': '1px 1px 4px #00857c'
+        ' ': '1px 1px 4px #00857c'
       },
 
       borderRadius: {
